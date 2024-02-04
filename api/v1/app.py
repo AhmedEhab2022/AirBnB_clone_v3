@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-Main App
+Module that contain the Main App
 """
 
 from flask import Flask
