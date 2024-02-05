@@ -17,7 +17,7 @@ app.register_blueprint(app_views)
 
 @app.teardown_appcontext
 def teadown(exeption):
-    """ Call in this method storage.close() to remove db session"""
+    """Call in this method storage.close() to remove db session"""
     storage.close()
 
 
@@ -31,7 +31,12 @@ def error404(e):
 
 if __name__ == "__main__":
 
-    host = os.getenv('HBNB_API_HOST', "0.0.0.0")
-    port = os.getenv('HBNB_API_HOST', '5000')
+    host = os.environ.get("HBNB_API_HOST")
+    port = os.environ.get("HBNB_API_PORT")
 
+    if host is None:
+        host = "0.0.0.0"
+
+    if port is None:
+        port = 5000
     app.run(host=host, port=port, threaded=True)

@@ -9,13 +9,13 @@ from flask import jsonify
 from models import storage
 
 
-@app_views.route('/status', methods=['GET'])
+@app_views.route("/status", methods=["GET"])
 def status():
     """Returns a JSON: "status": "OK" """
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/api/v1/stats', methods=['GET'])
+@app_views.route("/stats", methods=["GET"])
 def stats():
     """Return a JSON with the number of each class"""
     amenities = storage.count("Amenity")
@@ -25,11 +25,13 @@ def stats():
     states = storage.count("State")
     users = storage.count("User")
 
-    return jsonify({
-        "amenities": amenities,
-        "cities": cities,
-        "places": places,
-        "reviews": reviews,
-        "states": states,
-        "users": users
-    })
+    return jsonify(
+        {
+            "amenities": amenities,
+            "cities": cities,
+            "places": places,
+            "reviews": reviews,
+            "states": states,
+            "users": users,
+        }
+    )
