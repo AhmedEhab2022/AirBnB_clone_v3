@@ -58,10 +58,10 @@ def delete_state(state_id):
     )
 def create_state():
     """Creates a State"""
-    if not request.is_json:
-        return jsonify({"error": "Not a JSON"}), 400
-
     data = request.get_json()
+
+    if data is None:
+        return jsonify({"error": "Not a JSON"}), 400
 
     if "name" not in data:
         return jsonify({"error": "Missing name"}), 400
@@ -85,7 +85,7 @@ def update_state(state_id):
 
     data = request.get_json()
 
-    if not request.is_json:
+    if data is None:
         return jsonify({"error": "Not a JSON"}), 400
 
     for key, value in data.items():
