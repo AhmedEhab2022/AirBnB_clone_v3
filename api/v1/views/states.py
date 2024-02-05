@@ -10,7 +10,7 @@ from flask import jsonify, request, abort
 from models.state import State
 
 
-@app_views.route("/states", methods=["GET"], strict_slashs=False)
+@app_views.route("/states", methods=["GET"], strict_slashes=False)
 def get_states():
     """Retrieves the list of all State objects"""
     states_list = []
@@ -23,7 +23,7 @@ def get_states():
 @app_views.route(
         "/states/<string:state_id>",
         methods=["GET"],
-        strict_slashs=False
+        strict_slashes=False
     )
 def get_state(state_id):
     """Retrieves a State object by id"""
@@ -37,7 +37,7 @@ def get_state(state_id):
 @app_views.route(
         "/states/<string:state_id>",
         methods=["DELETE"],
-        strict_slashs=False
+        strict_slashes=False
     )
 def delete_state(state_id):
     """Deletes a State object by id"""
@@ -54,7 +54,7 @@ def delete_state(state_id):
 @app_views.route(
         "/states",
         methods=["POST"],
-        strict_slashs=False
+        strict_slashes=False
     )
 def create_state():
     """Creates a State"""
@@ -75,7 +75,7 @@ def create_state():
 @app_views.route(
         "/states/<string:state_id>",
         methods=["PUT"],
-        strict_slashs=False
+        strict_slashes=False
     )
 def update_state(state_id):
     """Updates a State by id"""
