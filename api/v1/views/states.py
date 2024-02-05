@@ -52,7 +52,7 @@ def delete_state(state_id):
 
 
 @app_views.route(
-        "/states",
+        "/states/",
         methods=["POST"],
         strict_slashes=False
     )
@@ -92,4 +92,5 @@ def update_state(state_id):
         if key != "id" and key != "created_at" and key != "updated_at":
             setattr(state, key, value)
 
+    state.save()
     return jsonify(state.to_dict())
