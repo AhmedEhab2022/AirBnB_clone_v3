@@ -16,7 +16,7 @@ app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
-def teadown():
+def teadown(exception)
     """ Call in this method storage.close() to remove db session"""
     storage.close()
 
