@@ -79,14 +79,14 @@ def create_state():
     )
 def update_state(state_id):
     """Updates a State by id"""
-    state = storage.get("State". state_id)
+    state = storage.get("State", state_id)
     if state is None:
         abort(404)
 
     data = request.get_json()
 
     if data is None:
-        return jsonify({"error": "Not a JSON"}), 400
+        abort(400, 'Not a JSON')
 
     for key, value in data.items():
         if key != "id" and key != "created_at" and key != "updated_at":

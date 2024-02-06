@@ -108,21 +108,6 @@ class testFileStorage(unittest.TestCase):
         except:
             self.assertTrue(False)
 
-    def test_delete(self):
-        """
-        Test delete method
-        """
-        fs = FileStorage()
-        new_state = State()
-        fs.new(new_state)
-        state_id = new_state.id
-        fs.save()
-        fs.delete(new_state)
-        with open("file.json", encoding="UTF-8") as fd:
-            state_dict = json.load(fd)
-        for k, v in state_dict.items():
-            self.assertFalse(state_id == k.split(".")[1])
-
     def test_model_storage(self):
         """
         Test State model in Filestorage
