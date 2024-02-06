@@ -10,7 +10,11 @@ from flask import jsonify, request, abort
 from models.city import City
 
 
-@app_views.route("/states/<string:state_id>/cities", methods=["GET"], strict_slashes=False)
+@app_views.route(
+        "/states/<string:state_id>/cities",
+        methods=["GET"],
+        strict_slashes=False
+    )
 def get_cities(state_id):
     """Retrieves the list of all City objects"""
     nostate = True
@@ -80,6 +84,7 @@ def create_city(state_id):
     if nostate:
         abort(404)
 
+    data["state_id"] = state_id
     new_city = City(**data)
     new_city.save()
 
