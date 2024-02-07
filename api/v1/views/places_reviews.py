@@ -11,19 +11,19 @@ from models.review import Review
 
 
 @app_views.route(
-    "/reviews/<string:review_id>/reviews", methods=["GET"], strict_slashes=False
+    "/places/<string:place_id>/reviews", methods=["GET"], strict_slashes=False
 )
-def get_reviews(review_id):
+def get_reviews(place_id):
     """Retrieves the list of all Review objects"""
-    noreview = True
-    for review in storage.all("Review").values():
-        if review.id == review_id:
-            noreview = False
-    if noreview:
+    noplace = True
+    for place in storage.all("Place").values():
+        if place.id == place_id:
+            noplace = False
+    if noplace:
         abort(404)
     reviews_list = []
     for review in storage.all("Review").values():
-        if review.review_id == review_id:
+        if review.place_id == place_id:
             reviews_list.append(review.to_dict())
     if reviews_list is None:
         abort(404)
@@ -55,9 +55,9 @@ def delete_review(review_id):
 
 
 @app_views.route(
-    "reviews/<string:review_id>/reviews", methods=["POST"], strict_slashes=False
+    "places/<string:place_id>/reviews", methods=["POST"], strict_slashes=False
 )
-def create_review(review_id):
+def create_review(place_id):
     """Creates a Review"""
     data = request.get_json()
 
@@ -66,15 +66,17 @@ def create_review(review_id):
 
     if "name" not in data:
         return jsonify({"error": "Missing name"}), 400
+    if "user_id" not in data:
+        abort(400, "Missing user_id")
 
-    noreview = True
-    for review in storage.all("Review").values():
-        if review.id == review_id:
-            noreview = False
-    if noreview:
+    noplace = True
+    for place in storage.all("Place").values():
+        if place.id == place_id:
+            noplace = False
+    if noplace:
         abort(404)
 
-    data["review_id"] = review_id
+    data["place_id"] = place_id
     new_review = Review(**data)
     new_review.save()
 

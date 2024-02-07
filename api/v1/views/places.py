@@ -64,6 +64,8 @@ def create_place(city_id):
 
     if "name" not in data:
         return jsonify({"error": "Missing name"}), 400
+    if "user_id" not in data:
+        abort(400, "Missing user_id")
 
     nocity = True
     for city in storage.all("City").values():
