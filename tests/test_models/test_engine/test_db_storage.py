@@ -405,7 +405,8 @@ class TestStorageCount(unittest.TestCase):
         result = storage.count(cls="City")
 
         self.assertEqual(
-            int(0 if len(storage.all("City")) is None else len(storage.all("City"))),
+            int(0 if len(storage.all("City")) is None
+                else len(storage.all("City"))),
             result,
         )
 
