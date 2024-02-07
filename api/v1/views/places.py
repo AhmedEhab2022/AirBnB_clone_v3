@@ -73,6 +73,13 @@ def create_place(city_id):
             nocity = False
     if nocity:
         abort(404)
+    user_id = data["user_id"]
+    nouser = True
+    for user in storage.all("User").values():
+        if user.id == user_id:
+            nouser = False
+    if nouser:
+        abort(404)
 
     data["city_id"] = city_id
     new_place = Place(**data)

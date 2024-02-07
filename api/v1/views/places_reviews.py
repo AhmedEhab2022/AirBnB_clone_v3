@@ -76,6 +76,14 @@ def create_review(place_id):
     if noplace:
         abort(404)
 
+    user_id = data["user_id"]
+    nouser = True
+    for user in storage.all("User").values():
+        if user.id == user_id:
+            nouser = False
+    if nouser:
+        abort(404)
+
     data["place_id"] = place_id
     new_review = Review(**data)
     new_review.save()
