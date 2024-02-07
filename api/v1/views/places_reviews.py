@@ -30,7 +30,8 @@ def get_reviews(place_id):
     return jsonify(reviews_list)
 
 
-@app_views.route("/reviews/<string:review_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/reviews/<string:review_id>", methods=["GET"],
+                 strict_slashes=False)
 def get_review(review_id):
     """Retrieves a Review object by id"""
     review = storage.get("Review", review_id)
@@ -40,7 +41,8 @@ def get_review(review_id):
 
 
 @app_views.route(
-    "/reviews/<string:review_id>", methods=["DELETE"], strict_slashes=False
+    "/reviews/<string:review_id>", methods=["DELETE"],
+    strict_slashes=False
 )
 def delete_review(review_id):
     """Deletes a Review object by id"""
@@ -55,7 +57,8 @@ def delete_review(review_id):
 
 
 @app_views.route(
-    "places/<string:place_id>/reviews", methods=["POST"], strict_slashes=False
+    "places/<string:place_id>/reviews", methods=["POST"],
+    strict_slashes=False
 )
 def create_review(place_id):
     """Creates a Review"""
@@ -64,8 +67,8 @@ def create_review(place_id):
     if data is None:
         return jsonify({"error": "Not a JSON"}), 400
 
-    if "name" not in data:
-        return jsonify({"error": "Missing name"}), 400
+    if "text" not in data:
+        return jsonify({"error": "Missing text"}), 400
     if "user_id" not in data:
         abort(400, "Missing user_id")
 
@@ -82,7 +85,7 @@ def create_review(place_id):
         if user.id == user_id:
             nouser = False
     if nouser:
-        abort(404)
+        abort(404, "useeeeeeeeeeeeeeee")
 
     data["place_id"] = place_id
     new_review = Review(**data)
@@ -91,7 +94,8 @@ def create_review(place_id):
     return jsonify(new_review.to_dict()), 201
 
 
-@app_views.route("/reviews/<string:review_id>", methods=["PUT"], strict_slashes=False)
+@app_views.route("/reviews/<string:review_id>", methods=["PUT"],
+                 strict_slashes=False)
 def update_review(review_id):
     """Updates a Review by id"""
     review = storage.get("Review", review_id)
